@@ -33,11 +33,28 @@ html, body {
 }
 
 #raw_text {
-    width: 49%;
+    width: 40%;
     float: right;
     margin-left: 1%;
 }
 #output {
     overflow-x: auto;
     padding: 0.5em;
+}
+
+/*This sets up the output div for printing*/
+/*http://stackoverflow.com/a/2618980/4591810*/
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #output, #output * {
+    visibility: visible;
+  }
+  #output {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
 }

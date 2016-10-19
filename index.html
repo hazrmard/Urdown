@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="rtl">
+<html dir="rtl" ng-app='Urdown'>
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Online Urdu markdown editor.">
@@ -21,10 +21,10 @@
     یھاں پر اپنا متن ڈالیں:
 </p></div>
 
-<div id="data_container">
+<div id="data_container" ng-controller="urdownConverter">
 
-    <textarea id="raw_text"></textarea>
-    <div id="output">OUTPUT</div>
+    <textarea id="raw_text" ng-model="rawText"></textarea>
+    <div id="output" dir="rtl" markdown-to-html="rawText"></div>
 
 </div>
 
