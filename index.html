@@ -6,15 +6,28 @@
     <meta name="keywords" content="اردو آنلایٰنeditor markdown urdu">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>اردو متن کی تصیح</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.5.8/angular-sanitize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.4.3/showdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-showdown/1.1.0/ng-showdown.min.js"></script>
+    <script src="./js/urdown.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
 </head>
 
-<body>
+<body><div id="container">
 
-<p>
-    یھاں پر اپنا متن ڈالیں  
-</p>
-ِ<textarea autofocus="true"></textarea>
+<div id="top"><p>
+    یھاں پر اپنا متن ڈالیں:
+</p></div>
 
-</body>
+<div id="data_container">
+
+    <textarea id="raw_text"></textarea>
+    <div id="output">OUTPUT</div>
+
+</div>
+
+</div></body>
 
 </html>
