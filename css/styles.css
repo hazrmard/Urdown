@@ -28,7 +28,6 @@ html, body {
 #output, #raw_text {
     padding: 1em;
     vertical-align: top;
-    background-color: #F1F1D4;
     height: 100%;
 }
 
@@ -36,6 +35,7 @@ html, body {
     width: 40%;
     float: right;
     margin-left: 1%;
+    background-color: #F1F1D4;
 }
 #output {
     overflow-x: auto;
@@ -54,7 +54,7 @@ html, body {
   }
   #output {
     position: absolute;
-    left: 0;
+    right: 0;
     top: 0;
   }
 }

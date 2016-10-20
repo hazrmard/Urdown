@@ -23,8 +23,8 @@
 
 <div id="data_container" ng-controller="urdownConverter">
 
-    <textarea id="raw_text" ng-model="rawText"></textarea>
-    <div id="output" dir="rtl" markdown-to-html="rawText"></div>
+    <textarea id="raw_text" placeholder="{{placeholder}}" ng-model="rawText"></textarea>
+    <div id="output" dir="rtl" markdown-to-html="rawText.length === 0 ? placeholder : rawText"></div>
 
 </div>
 
