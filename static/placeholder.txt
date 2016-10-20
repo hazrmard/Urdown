@@ -7,7 +7,7 @@
 * *متن کو تِرچھا کر سکتے ہیں*۔
 * متن کو [دوسری وِیب سایٔٹ سے جوڑ سکتے ہیں۔](http://iahmed.me)
 
-اِس کے علاوہ آپ ینگریزی میں بھی متن ڈال سکتے ہیں:
+اِس کے علاوہ آپ انگریزی میں بھی متن ڈال سکتے ہیں:
 
 ،،،
 Urdown is a web-based markdown editor for Urdu. The source is available on
