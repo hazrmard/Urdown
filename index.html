@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="description" content="Online Urdu markdown editor.">
     <meta name="keywords" content="اردو آنلایٰنeditor markdown urdu">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <title>اردو متن کی تصیح</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
@@ -16,20 +16,21 @@
 </head>
 
 <body ng-controller="urdownConverter" ng-class="{day: !nightMode, night: nightMode}">
-<div id="container">
+<div id="container" ng-class="{read:!editMode}">
 
 <div id="top">
         <div id="prompt"> یھاں پر اپنا متن ڈالیں:</div>
         <div id="menu">
             <label>انداز رات<input type="checkbox" ng-model=nightMode></input></label>
+            <label>انداز تصیح<input type="checkbox" ng-model=editMode ng-change="restoreContainer()"></input></label>
         </div>
 </div>
 
 <div id="data_container">
 
-    <textarea id="raw_text" placeholder="{{placeholder}}" ng-model="rawText"></textarea>
-    <div id="output-outer">
-        <div id="output-inner" dir="rtl" markdown-to-html="rawText.length === 0 ? placeholder : rawText"></div>
+    <textarea id="raw_text" placeholder="{{placeholder}}" ng-model="rawText" ng-show="editMode"></textarea>
+    <div id="output_outer">
+        <div id="output_inner" dir="rtl" markdown-to-html="rawText.length === 0 ? placeholder : rawText"></div>
     </div>
 
 </div>

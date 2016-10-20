@@ -24,6 +24,14 @@ urdown.config(function($showdownProvider) {
 urdown.controller('urdownConverter', function($scope, $http) {
     $scope.rawText = ''
     $scope.nightMode = false
+    $scope.editMode = true
+
+    // restores unintentional residual scroll during read mode
+    $scope.restoreContainer = function() {
+            if ($scope.editMode) {
+                document.getElementById('data_container').scrollTop = 0;
+            }
+        }
 
     $http.get('./static/placeholder.txt').success(function(response) {
         $scope.placeholder = response

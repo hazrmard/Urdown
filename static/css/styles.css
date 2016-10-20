@@ -8,9 +8,10 @@ html, body {
 
 #container {
     width: 100%;
-    height: 96%;
+    height: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 #top {
@@ -23,16 +24,17 @@ html, body {
 
 #data_container {
     width: inherit;
-    height: 96%;
+    height: 95%;
     overflow: hidden;
     padding: 0 0 1em 0;
 }
 
-#output-outer, #raw_text {
+#output_outer, #raw_text {
     padding: 1em 2em 0.5em 2em;
     vertical-align: top;
     height: inherit;
     margin: 1em;
+    top: 0px;
 }
 
 #raw_text {
@@ -40,19 +42,20 @@ html, body {
     float: right;
 }
 
-#output-outer {
+#output_outer {
     box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.75);
     overflow-x: auto;
 }
 
 /*Day Theme*/
+/*.day directly applies to body*/
 .day, .day * {
     color: black;
 }
 .day textarea {
     background-color: #F1F1D4;
 }
-.day #output-inner, .day #output-outer {
+.day #output-inner, .day #output_outer {
     background-color: white;
 }
 .day {
@@ -60,20 +63,36 @@ html, body {
 }
 
 /*Night Theme*/
+/*.night directly applies to body*/
 .night, .night * {
     color: #B8B8B8;
 }
-.night #output-inner * {
+.night #output_inner * {
     color: white;
 }
 .night textarea {
     background-color: #202020;
 }
-.night #output-inner, .night #output-outer {
+.night #output_inner, .night #output_outer {
     background-color: #484848;
 }
 .night {
     background-color: #181818;
+}
+
+/*Read mode = !editMode*/
+/*.read directly applies to #data_container*/
+/*BUG: for output of length more than screen height, if the editMode checkbox is
+clicked at a non-zero scroll position, the resulting data_container contents
+are still scrolled. This is fixed by the restoreContainer function.*/
+.read #data_container {
+    overflow: auto;
+}
+.read #output_outer {
+    width: 70%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*This sets up the output div for printing*/
@@ -83,11 +102,11 @@ html, body {
   body * {
     visibility: hidden;
   }
-  #output-inner, #output-inner * {
+  #output_inner, #output_inner * {
     visibility: visible;
     color: black;
   }
-  #output-inner {
+  #output_inner {
     position: absolute;
     right: 0;
     top: 0;
