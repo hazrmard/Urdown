@@ -1,0 +1,26 @@
+# خوش آمدید!!!
+اُرڈاوُن (`Urdown`) انٹرنیٹ پر مبنی ٹیکسٹ ایڈیٹر ہے۔ اِس کے ذریعے آپ اُردو متن کو
+`HTML` میں تبدیل کر سکتے ہیں۔
+
+مثال کے طور پر آپ:
+* **متن کا وزن بڑھا سکتے ہیں**۔
+* *متن کو تِرچھا کر سکتے ہیں*۔
+* متن کو [دوسری وِیب سایٔٹ سے جوڑ سکتے ہیں۔](http://iahmed.me)
+
+اِس کے علاوہ آپ ینگریزی میں بھی متن ڈال سکتے ہیں:
+
+،،،
+Urdown is a web-based markdown editor for Urdu. The source is available on
+[Github](https://github.com/hazrmard/Urdown).
+
+This is some english text. English text, when enclosed in 3 commas on either side
+becomes left-aligned. It follows the same markdown rules as the Urdu text. For
+example, you can:
+* Make text **bold like this**.
+* Or make it *slanted like this*.
+* [Or add a hyperlink like this.](http://iahmed.me)
+،،،
+
+آپ اپنے متن میں تصاویر بھی شامل کر سکتے ہیں:
+
+![تصویر](https://avatars0.githubusercontent.com/u/22875856?v=3&s=200)
