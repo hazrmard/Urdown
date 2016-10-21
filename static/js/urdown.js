@@ -6,7 +6,7 @@ var englishBlock = function (sd) {
           type: 'lang',
           regex: /[\n\r]+?[,|،]{3}([\s\S]+?)[\n\r]+[,|،]{3}[\s]+?/gm,
           replace: function(match, capture) {
-              return '\n<div dir="ltr" class="ltr-div">'+sd.makeHtml(capture)+'</div>\n';
+              return '\n<div dir="ltr" class="ltr_div">'+sd.makeHtml(capture)+'</div>\n';
           }
         };
         return [myext1];
@@ -61,7 +61,7 @@ urdown.controller('urdownConverter', function($scope, $http, $location) {
             $scope.nightMode = ($location.search().nightMode=='true') ? true : false
         }
         if ($location.search().editMode!=undefined) {
-            $scope.editMode = ($location.search().editMode=='true') ? true : false            
+            $scope.editMode = ($location.search().editMode=='true') ? true : false
         }
     };
 

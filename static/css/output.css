@@ -1,0 +1,13 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notonastaliqurdudraft.css);
+
+#output_inner:not(code):not(pre)  {
+    font-family: 'Noto Nastaliq Urdu Draft', serif;
+}
+
+#output_inner code, #output_inner pre {
+    background-color: #dbdde0;
+}
+
+#output_inner .ltr_div * {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
