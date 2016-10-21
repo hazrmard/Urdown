@@ -53,13 +53,24 @@ urdown.controller('urdownConverter', function($scope, $http, $location) {
         } else {                                 // else .src==undefined:
             $scope.rawText = ''                  // reset content.
         }
-    }
+    };
+
+    // loads settings from URL
+    $scope.loadSettings = function() {
+        if ($location.search().nightMode!=undefined) {
+            $scope.nightMode = ($location.search().nightMode=='true') ? true : false
+        }
+        if ($location.search().editMode!=undefined) {
+            $scope.editMode = ($location.search().editMode=='true') ? true : false            
+        }
+    };
 
     // checks /#?query=params for changes, and reloads markdown
     $scope.$watch(function() {
         return $location.search()
     }, function(x) {
         $scope.loadMarkdown()
+        $scope.loadSettings()
     });
 
 });
