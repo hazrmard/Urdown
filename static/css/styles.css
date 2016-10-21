@@ -15,16 +15,27 @@ html, body {
 }
 
 #top {
-    padding: 0.5em 1em 0em 0em;
+    padding: 0.5em 1em 0em 0.5em;
 }
 #top div {
     display: inline-block;
-    margin: 0 0 0 10%;
+}
+#options {
+    float: right;
+    padding-right: 1em;
+}
+#menu {
+    float:left;
+    padding-left: 1em;
+}
+#menu *, #options * {
+    margin: 0 0.5em 0 0;
+    padding: 0.5em;
 }
 
 #data_container {
     width: inherit;
-    height: 95%;
+    height: 94%;
     overflow: hidden;
     padding: 0 0 1em 0;
 }
@@ -46,6 +57,23 @@ html, body {
     box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.75);
     overflow-x: auto;
 }
+
+/*Read mode = !editMode*/
+/*.read directly applies to #data_container*/
+/*BUG: for output of length more than screen height, if the editMode checkbox is
+clicked at a non-zero scroll position, the resulting data_container contents
+are still scrolled. This is fixed by the restoreContainer function.*/
+.read #data_container {
+    overflow: auto;
+}
+.read #output_outer {
+    width: 70%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*COSMETIC EFFECTS*/
 
 /*Day Theme*/
 /*.day directly applies to body*/
@@ -80,19 +108,24 @@ html, body {
     background-color: #181818;
 }
 
-/*Read mode = !editMode*/
-/*.read directly applies to #data_container*/
-/*BUG: for output of length more than screen height, if the editMode checkbox is
-clicked at a non-zero scroll position, the resulting data_container contents
-are still scrolled. This is fixed by the restoreContainer function.*/
-.read #data_container {
-    overflow: auto;
+/*Button styles*/
+.hvr-border-fade {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: box-shadow;
+  transition-property: box-shadow;
+  box-shadow: inset 0 0 0 4px #e1e1e1, 0 0 1px transparent;
+  /* Hack to improve aliasing on mobile/tablet devices */
 }
-.read #output_outer {
-    width: 70%;
-    height: auto;
-    margin-left: auto;
-    margin-right: auto;
+.hvr-border-fade:hover, .hvr-border-fade:focus, .hvr-border-fade:active {
+  box-shadow: inset 0 0 0 4px #2098D1, 0 0 1px transparent;
+  /* Hack to improve aliasing on mobile/tablet devices */
 }
 
 /*This sets up the output div for printing*/
@@ -110,6 +143,7 @@ are still scrolled. This is fixed by the restoreContainer function.*/
     position: absolute;
     right: 0;
     top: 0;
+    width: 100%;
     background-color: white;
   }
 }

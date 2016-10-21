@@ -22,7 +22,7 @@ urdown.config(function($showdownProvider) {
 });
 
 // setting up controller
-urdown.controller('urdownConverter', function($scope, $http, $location) {
+urdown.controller('urdownConverter', function($scope, $http, $location, $window) {
     $scope.rawText = ''
     $scope.nightMode = false
     $scope.editMode = true
@@ -64,6 +64,17 @@ urdown.controller('urdownConverter', function($scope, $http, $location) {
             $scope.editMode = ($location.search().editMode=='true') ? true : false
         }
     };
+
+    // save markdown as plain text
+    $scope.saveMarkdown = function() {
+        b = new Blob([$scope.rawText], {type: "text/plain;charset=utf-8"})
+        saveAs(b, 'urdown.md')   // from FileSaver.js
+    }
+
+    // opens the print dialog where output can be saved as pdf
+    $scope.printOutput = function() {
+        $window.print()
+    }
 
     // checks /#?query=params for changes, and reloads markdown
     $scope.$watch(function() {

@@ -7,10 +7,11 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <title>اردو متن کی تصیح</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-    <script src="https://code.angularjs.org/1.5.8/angular-sanitize.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.4.3/showdown.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-showdown/1.1.0/ng-showdown.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script type="text/javascript" src="https://code.angularjs.org/1.5.8/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.4.3/showdown.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ng-showdown/1.1.0/ng-showdown.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
     <script src="./static/js/urdown.js"></script>
     <link rel="stylesheet" type="text/css" href="./static/css/styles.css">
     <link rel="stylesheet" type="text/css" href="./static/css/output.css">
@@ -20,9 +21,15 @@
 <div id="container" ng-class="{read:!editMode}">
 
 <div id="top">
-        <div id="menu">
+        <div id="options">
             <label>انداز رات<input type="checkbox" ng-model=nightMode></input></label>
             <label>انداز تصیح<input type="checkbox" ng-model=editMode ng-change="restoreContainer()"></input></label>
+        </div>
+        <div id="menu">
+            <div class="hvr-border-fade" ng-click="saveMarkdown()">مہفوظ</div>
+            <div class="hvr-border-fade" ng-click="printOutput()">برآمد</div>
+            <div class="hvr-border-fade" ng-click="rawText=''">نیا</div>
+            <div class="hvr-border-fade">کھولیں</div>
         </div>
 </div>
 
