@@ -21,7 +21,8 @@ urdown.config(function($showdownProvider) {
     $showdownProvider.loadExtension('englishblock')
 });
 
-urdown.controller('urdownConverter', function($scope, $http) {
+// setting up controller
+urdown.controller('urdownConverter', function($scope, $http, $location) {
     $scope.rawText = ''
     $scope.nightMode = false
     $scope.editMode = true
@@ -33,7 +34,32 @@ urdown.controller('urdownConverter', function($scope, $http) {
             }
         }
 
+    // load placeholder text to be rendered
     $http.get('./static/placeholder.txt').success(function(response) {
         $scope.placeholder = response
     });
+
+    // loads a markdown file using a GET request
+    $scope.loadMarkdown = function() {
+        if ($location.search().src!=undefined) {
+            $http({
+                method: 'GET',
+                url: $location.search().src
+            }).then(function(response) {         // successful request:
+                $scope.rawText = response.data   // set content.
+            }, function(response) {              // error:
+                $scope.rawText = ''              // reset content.
+            });
+        } else {                                 // else .src==undefined:
+            $scope.rawText = ''                  // reset content.
+        }
+    }
+
+    // checks /#?query=params for changes, and reloads markdown
+    $scope.$watch(function() {
+        return $location.search()
+    }, function(x) {
+        $scope.loadMarkdown()
+    });
+
 });

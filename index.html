@@ -19,7 +19,6 @@
 <div id="container" ng-class="{read:!editMode}">
 
 <div id="top">
-        <div id="prompt"> یھاں پر اپنا متن ڈالیں:</div>
         <div id="menu">
             <label>انداز رات<input type="checkbox" ng-model=nightMode></input></label>
             <label>انداز تصیح<input type="checkbox" ng-model=editMode ng-change="restoreContainer()"></input></label>
@@ -28,7 +27,7 @@
 
 <div id="data_container">
 
-    <textarea id="raw_text" placeholder="{{placeholder}}" ng-model="rawText" ng-show="editMode"></textarea>
+    <textarea id="raw_text" placeholder="{{placeholder}}" ng-model="rawText" ng-show="editMode" ng-init="loadMarkdown()"></textarea>
     <div id="output_outer">
         <div id="output_inner" dir="rtl" markdown-to-html="rawText.length === 0 ? placeholder : rawText"></div>
     </div>
