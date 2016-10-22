@@ -26,6 +26,7 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window)
     $scope.rawText = ''
     $scope.nightMode = false
     $scope.editMode = true
+    $scope.showPrompt = false
 
     // restores unintentional residual scroll during read mode
     $scope.restoreContainer = function() {
@@ -39,21 +40,48 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window)
         $scope.placeholder = response
     });
 
-    // loads a markdown file using a GET request
+    // loads a markdown file using the src query parameter
+    // called automatically when $location.search().src changes
+    // this way a link to the site can automatically initialize it with data
     $scope.loadMarkdown = function() {
         if ($location.search().src!=undefined) {
+            $scope.getMarkdown($location.search().src)
+        } else {                                 // else .src==undefined:
+            $scope.rawText = ''                  // reset content.
+        }
+    };
+
+    // sends a get request to path and loads markdown
+    // called when manually loading markdown from a web address
+    $scope.getMarkdown = function(path) {
+        if (path!=undefined) {
             $http({
                 method: 'GET',
-                url: $location.search().src
+                url: path
             }).then(function(response) {         // successful request:
                 $scope.rawText = response.data   // set content.
             }, function(response) {              // error:
                 $scope.rawText = ''              // reset content.
             });
-        } else {                                 // else .src==undefined:
-            $scope.rawText = ''                  // reset content.
         }
-    };
+    }
+
+    // reads markdown from disk
+    $scope.readMarkdown = function() {
+        var reader = new FileReader()
+        reader.onload = function(e) {
+            $scope.$apply(function() {
+                $scope.rawText = reader.result
+            });
+        };
+        reader.onerror = function(e) {
+            console.log('Error reading file.')
+        }
+
+        var f = document.getElementById('fileinput').files[0]
+        reader.readAsText(f)
+        $scope.showPrompt = false
+    }
 
     // loads settings from URL
     $scope.loadSettings = function() {
@@ -67,13 +95,22 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window)
 
     // save markdown as plain text
     $scope.saveMarkdown = function() {
-        b = new Blob([$scope.rawText], {type: "text/plain;charset=utf-8"})
+        var b = new Blob([$scope.rawText], {type: "text/plain;charset=utf-8"})
         saveAs(b, 'urdown.md')   // from FileSaver.js
     }
 
     // opens the print dialog where output can be saved as pdf
     $scope.printOutput = function() {
         $window.print()
+    }
+
+    // resets document
+    $scope.newMarkdown = function() {
+        if ($location.search().src!=undefined) {
+            $location.search('src',null)
+        } else {
+            $scope.rawText = ''
+        }
     }
 
     // checks /#?query=params for changes, and reloads markdown

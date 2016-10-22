@@ -8,6 +8,6 @@
     background-color: #dbdde0;
 }
 
-#output_inner .ltr_div * {
+#output_inner .ltr_div :not(code):not(pre) {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }

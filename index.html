@@ -26,20 +26,30 @@
             <label>انداز تصیح<input type="checkbox" ng-model=editMode ng-change="restoreContainer()"></input></label>
         </div>
         <div id="menu">
-            <div class="hvr-border-fade" ng-click="saveMarkdown()">مہفوظ</div>
+            <div class="hvr-border-fade" ng-click="saveMarkdown()">محفوظ</div>
             <div class="hvr-border-fade" ng-click="printOutput()">برآمد</div>
-            <div class="hvr-border-fade" ng-click="rawText=''">نیا</div>
-            <div class="hvr-border-fade">کھولیں</div>
+            <div class="hvr-border-fade" ng-click="newMarkdown()">نیا</div>
+            <div class="hvr-border-fade" ng-click="showPrompt=!showPrompt">کھولیں</div>
         </div>
 </div>
 
 <div id="data_container">
-
-    <textarea id="raw_text" placeholder="{{placeholder}}" ng-model="rawText" ng-show="editMode" ng-init="loadMarkdown()"></textarea>
+    <textarea autofocus id="raw_text" placeholder="{{placeholder}}" ng-model="rawText" ng-show="editMode" ng-init="loadMarkdown()"></textarea>
     <div id="output_outer">
         <div id="output_inner" dir="rtl" markdown-to-html="rawText.length === 0 ? placeholder : rawText"></div>
     </div>
+</div>
 
+<div id="prompt" ng-show="showPrompt">
+    <div>دستاویز کا اِنٹرنیٹ لِنک ڈالیں:</div>
+    <input type="text" dir="ltr" ng-model="promptInput" ng-enter="showPrompt=false; getMarkdown(promptInput)"></input>
+    <div>یا کمپیوٹر سے دستاویز چنیں: </div>
+    <input id="fileinput" type="file" accept="text/*" onchange="angular.element(this).scope().readMarkdown()"></input>
+    <label for="fileinput" id="fileinput_label" class="hvr-border-fade">دستاویزات۔۔۔</label>
+    <div id="prompt_commands">
+        <div class="hvr-border-fade" ng-click="showPrompt=false; getMarkdown(promptInput)">ٹھیک</div>
+        <div class="hvr-border-fade" ng-click="showPrompt=false">منسوخ</div>
+    </div>
 </div>
 
 </div>

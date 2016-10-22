@@ -5,7 +5,6 @@ html, body {
     padding: 0px !important;
     overflow: auto;
 }
-
 #container {
     width: 100%;
     height: 100%;
@@ -14,6 +13,7 @@ html, body {
     overflow: hidden;
 }
 
+/*styles for the top options bar*/
 #top {
     padding: 0.5em 1em 0em 0.5em;
 }
@@ -33,13 +33,13 @@ html, body {
     padding: 0.5em;
 }
 
+/*styles for the text input/optput areas*/
 #data_container {
     width: inherit;
     height: 94%;
     overflow: hidden;
     padding: 0 0 1em 0;
 }
-
 #output_outer, #raw_text {
     padding: 1em 2em 0.5em 2em;
     vertical-align: top;
@@ -47,19 +47,45 @@ html, body {
     margin: 1em;
     top: 0px;
 }
-
 #raw_text {
     width: 40%;
     float: right;
 }
-
 #output_outer {
-    box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.75);
     overflow-x: auto;
 }
 
+/*style for prompt div*/
+#prompt {
+    position: fixed;
+    top: 40%;
+    left: 30%;
+    width: 30%;
+    padding: 1em;
+}
+#prompt input[type="text"], #prompt_commands {
+    padding: 0.2em;
+    margin: 0.5em;
+    width: 90%;
+}
+#prompt_commands div {
+    display: inline-block;
+    padding: 0.5em
+}
+#fileinput {
+    display: none;
+}
+#fileinput_label {
+    padding: 0.75em;
+    margin-top: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    text-align: center;
+}
+
 /*Read mode = !editMode*/
-/*.read directly applies to #data_container*/
+/*.read class directly applies to #data_container*/
 /*BUG: for output of length more than screen height, if the editMode checkbox is
 clicked at a non-zero scroll position, the resulting data_container contents
 are still scrolled. This is fixed by the restoreContainer function.*/
@@ -86,23 +112,39 @@ are still scrolled. This is fixed by the restoreContainer function.*/
 .day #output-inner, .day #output_outer {
     background-color: white;
 }
+.day #output_outer, .day #prompt {
+    box-shadow: 1px 2px 10px 0px rgba(0,0,0,0.75);
+}
+.day #prompt {
+    background-color: rgba(237, 237, 237, 0.9);
+}
 .day {
     background-color: white;
 }
 
 /*Night Theme*/
 /*.night directly applies to body*/
-.night, .night * {
+/*It also leaves code/text input/pre elements with the default style*/
+.night * {
     color: #B8B8B8;
 }
-.night #output_inner * {
+.night #output_inner :not(code):not(pre) {
     color: white;
+}
+#output_inner pre *, #output_inner code, input[type="text"] {
+    color: black;
 }
 .night textarea {
     background-color: #202020;
 }
 .night #output_inner, .night #output_outer {
     background-color: #484848;
+}
+.night #output_outer, .night #prompt {
+    box-shadow: 1px 2px 10px 0px rgba(255,255,255,0.75);
+}
+.night #prompt {
+    background-color: rgba(17, 17, 17, 0.9);
 }
 .night {
     background-color: #181818;
@@ -132,18 +174,24 @@ are still scrolled. This is fixed by the restoreContainer function.*/
 /*http://stackoverflow.com/a/2618980/4591810*/
 
 @media print {
+  body {
+      background-color: white !important;
+  }
   body * {
-    visibility: hidden;
+    visibility: hidden !important;
   }
   #output_inner, #output_inner * {
-    visibility: visible;
-    color: black;
+    visibility: visible !important;
+    color: black !important;
+  }
+  #output_inner:not(code):not(pre)  {
+    background-color: white !important;
   }
   #output_inner {
     position: absolute;
     right: 0;
     top: 0;
     width: 100%;
-    background-color: white;
+    background-color: white !important;
   }
 }
