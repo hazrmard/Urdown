@@ -16,6 +16,7 @@ can:
 * Load markdown files from disk,
 * Save markdown files to disk,
 * Export rendered markdown as PDF (using browsers' save-to-pdf ability),
+* Export markdown as `HTML`,
 * Switch between day/night modes,
 * Switch between edit/read modes.
 

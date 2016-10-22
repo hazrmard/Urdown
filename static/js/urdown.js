@@ -26,7 +26,9 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window)
     $scope.rawText = ''
     $scope.nightMode = false
     $scope.editMode = true
-    $scope.showPrompt = false
+    $scope.showOpenPrompt = false
+    $scope.showHTMLPrompt = false
+    $scope.outHTML = ''
 
     // restores unintentional residual scroll during read mode
     $scope.restoreContainer = function() {
@@ -80,7 +82,7 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window)
 
         var f = document.getElementById('fileinput').files[0]
         reader.readAsText(f)
-        $scope.showPrompt = false
+        $scope.showOpenPrompt = false
     }
 
     // loads settings from URL
@@ -102,6 +104,20 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window)
     // opens the print dialog where output can be saved as pdf
     $scope.printOutput = function() {
         $window.print()
+    }
+
+    // shows the html content (w/ style attributes) of output
+    $scope.showHTML = function() {
+        var out = document.getElementById("output_outer").innerHTML
+        $http({
+            method: 'GET',
+            url: './static/css/output.css'
+        }).then(function(response) {         // successful request:
+            $scope.outHTML = '<div id="output_outer"><style scoped>'+response.data+
+                '</style>'+out+'</div>'
+        }, function(response) {              // error:
+            console.log('Could not load CSS file')
+        });
     }
 
     // resets document

@@ -28,8 +28,9 @@
         <div id="menu">
             <div class="hvr-border-fade" ng-click="saveMarkdown()">محفوظ</div>
             <div class="hvr-border-fade" ng-click="printOutput()">برآمد</div>
+            <div class="hvr-border-fade" ng-click="showHTMLPrompt=!showHTMLPrompt; showOpenPrompt=false; showHTMLPrompt ? showHTML():null">HTML</div>
             <div class="hvr-border-fade" ng-click="newMarkdown()">نیا</div>
-            <div class="hvr-border-fade" ng-click="showPrompt=!showPrompt">کھولیں</div>
+            <div class="hvr-border-fade" ng-click="outHTML=''; showHTMLPrompt=false; showOpenPrompt=!showOpenPrompt">کھولیں</div>
         </div>
 </div>
 
@@ -40,15 +41,16 @@
     </div>
 </div>
 
-<div id="prompt" ng-show="showPrompt">
-    <div>دستاویز کا اِنٹرنیٹ لِنک ڈالیں:</div>
-    <input type="text" dir="ltr" ng-model="promptInput" ng-enter="showPrompt=false; getMarkdown(promptInput)"></input>
-    <div>یا کمپیوٹر سے دستاویز چنیں: </div>
-    <input id="fileinput" type="file" accept="text/*" onchange="angular.element(this).scope().readMarkdown()"></input>
-    <label for="fileinput" id="fileinput_label" class="hvr-border-fade">دستاویزات۔۔۔</label>
+<div id="prompt" ng-show="showOpenPrompt || showHTMLPrompt">
+    <div ng-show="showOpenPrompt">دستاویز کا اِنٹرنیٹ لِنک ڈالیں:</div>
+    <input ng-show="showOpenPrompt" type="text" dir="ltr" ng-model="promptInput" ng-enter="showOpenPrompt=false; getMarkdown(promptInput)"></input>
+    <div ng-show="showOpenPrompt">یا کمپیوٹر سے دستاویز چنیں: </div>
+    <input ng-show="showOpenPrompt" id="fileinput" type="file" accept="text/*" onchange="angular.element(this).scope().readMarkdown()"></input>
+    <label ng-show="showOpenPrompt" for="fileinput" id="fileinput_label" class="hvr-border-fade">دستاویزات۔۔۔</label>
+    <div dir="ltr" id="html_output" ng-show="showHTMLPrompt" contenteditable>{{outHTML}}</div>
     <div id="prompt_commands">
-        <div class="hvr-border-fade" ng-click="showPrompt=false; getMarkdown(promptInput)">ٹھیک</div>
-        <div class="hvr-border-fade" ng-click="showPrompt=false">منسوخ</div>
+        <div ng-show="showOpenPrompt" class="hvr-border-fade" ng-click="showOpenPrompt=false; getMarkdown(promptInput)">ٹھیک</div>
+        <div class="outHTML=''; hvr-border-fade" ng-click="showOpenPrompt=false; showHTMLPrompt=false">منسوخ</div>
     </div>
 </div>
 
