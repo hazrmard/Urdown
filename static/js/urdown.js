@@ -1,13 +1,18 @@
 // This sets up an extension object to be passed to showdown.
 // The englishBlock extension sets the direction of text within to left-to-right
-var englishBlock = function (sd) {
+// myext1 wraps english text with %% markers, and lets the inner text be
+// formatted as usual
+// myext2 escapes 3 instances of comma characters
+// myext3 converts %% wrapped text into left-to-right div
+var englishBlock = function (sd) {  // sd is now redundant
     return function() {
         var myext1 = {
           type: 'lang',
           regex: /[\n\r]+?[,|،]{3}([\s\S]+?)[\n\r]+[,|،]{3}[\s]+?/gm,
-          replace: function(match, capture) {
-              return '\n<div dir="ltr" class="ltr_div">'+sd.makeHtml(capture)+'</div>\n';
-          }
+        //   replace: function(match, capture) {
+        //       return '\n<div dir="ltr" class="ltr_div">'+sd.makeHtml(capture)+'</div>\n';
+        //   }
+          replace: '%ENGBLOCKSTART%\n$1\n%ENGBLOCKEND%'
         };
 
         var myext2 = {
@@ -15,7 +20,13 @@ var englishBlock = function (sd) {
           regex: /\\([,|،]{3})/gm,
           replace: '$1'
         };
-        return [myext1, myext2];
+
+        var myext3 = {
+            type: 'output',
+            regex: /%ENGBLOCKSTART%([\s\S]+?)%ENGBLOCKEND%/gm,
+            replace: '\n<div dir="ltr" class="ltr_div">$1</div>\n'
+        }
+        return [myext1, myext2, myext3];
     }
 };
 

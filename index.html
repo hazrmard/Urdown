@@ -5,6 +5,7 @@
     <meta name="description" content="Online Urdu markdown editor.">
     <meta name="keywords" content="اردو آنلایٰنeditor markdown urdu">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <link rel='shortcut icon' href='./static/img/markdown.ico' type='image/x-icon'/>
     <title>اردو متن کی تصیح</title>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
@@ -15,6 +16,9 @@
     <script src="./static/js/urdown.js"></script>
     <link rel="stylesheet" type="text/css" href="./static/css/styles.css">
     <link rel="stylesheet" type="text/css" href="./static/css/output.css">
+
+    <!-- Github Star button -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 </head>
 
 <body ng-controller="urdownConverter" ng-class="{day: !nightMode, night: nightMode}">
@@ -30,6 +34,7 @@
             </select>
         </div>
         <div id="menu">
+            <a class="github-button" href="https://github.com/hazrmard/Urdown" data-count-href="/hazrmard/Urdown/stargazers" data-count-api="/repos/hazrmard/Urdown#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hazrmard/Urdown on GitHub">Star</a>
             <a href="{{ui.helpLink}}" target="_blank"><div class="hvr-border-fade">{{ui.button.help}}</div></a>
             <div class="hvr-border-fade" ng-click="saveMarkdown()">{{ui.button.save}}</div>
             <div class="hvr-border-fade" ng-click="printOutput()">{{ui.button.export}}</div>

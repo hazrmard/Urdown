@@ -28,13 +28,17 @@ html, body {
     float:left;
     padding-left: 1em;
 }
-#menu *, #options *{
+#menu :not(iframe):not(.github-button), #options *{
     margin: 0 0.5em 0 0;
     padding: 0.5em;
 }
 #top img {
     padding: 0;
     margin: 0;
+}
+.github-button {
+    padding: 0px !important;
+    margin: 0px !important;
 }
 
 /*styles for the text input/optput areas*/
