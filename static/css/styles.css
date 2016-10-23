@@ -28,15 +28,19 @@ html, body {
     float:left;
     padding-left: 1em;
 }
-#menu *, #options * {
+#menu *, #options *{
     margin: 0 0.5em 0 0;
     padding: 0.5em;
+}
+#top img {
+    padding: 0;
+    margin: 0;
 }
 
 /*styles for the text input/optput areas*/
 #data_container {
     width: inherit;
-    height: 94%;
+    height: 93%;
     overflow: hidden;
     padding: 0 0 1em 0;
 }

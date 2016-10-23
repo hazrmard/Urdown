@@ -9,7 +9,13 @@ var englishBlock = function (sd) {
               return '\n<div dir="ltr" class="ltr_div">'+sd.makeHtml(capture)+'</div>\n';
           }
         };
-        return [myext1];
+
+        var myext2 = {
+          type: 'output',
+          regex: /\\([,|،]{3})/gm,
+          replace: '$1'
+        };
+        return [myext1, myext2];
     }
 };
 
@@ -29,6 +35,41 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window)
     $scope.showOpenPrompt = false
     $scope.showHTMLPrompt = false
     $scope.outHTML = ''
+    $scope.uiLang = {'label':'اُردو', 'value': 'urdu'}
+    $scope.uiLangs = [
+                        {'label':'اُردو', 'value': 'urdu'},         // index 0
+                        {'label': 'English', 'value':'english'}    // index 1
+                    ]
+
+
+
+    // checks /#?query=params for changes, and reloads markdown
+    $scope.$watch(function() {
+        return $location.search()
+    }, function(x) {
+        $scope.loadMarkdown()
+        $scope.loadSettings()
+    });
+
+    // loads ui elements
+    $scope.loadUI = function() {
+        $http({
+            method: 'GET',
+            url: './static/ui/' + $scope.uiLang.value + '.json'
+        }).then(function(response) {
+            $scope.ui = response.data
+            console.log('UI loaded: ' + $scope.uiLang.value)
+        }, function(response) {
+            console.log('Could not load ui.')
+        });
+    }
+
+    // load placeholder text to be rendered
+    $http.get('./static/placeholder.txt').success(function(response) {
+        $scope.placeholder = response
+    });
+    // load default ui
+    $scope.loadUI()
 
     // restores unintentional residual scroll during read mode
     $scope.restoreContainer = function() {
@@ -36,11 +77,6 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window)
                 document.getElementById('data_container').scrollTop = 0;
             }
         }
-
-    // load placeholder text to be rendered
-    $http.get('./static/placeholder.txt').success(function(response) {
-        $scope.placeholder = response
-    });
 
     // loads a markdown file using the src query parameter
     // called automatically when $location.search().src changes
@@ -54,13 +90,14 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window)
     };
 
     // sends a get request to path and loads markdown
-    // called when manually loading markdown from a web address
+    // called when loading markdown from a web address
     $scope.getMarkdown = function(path) {
         if (path!=undefined) {
             $http({
                 method: 'GET',
                 url: path
             }).then(function(response) {         // successful request:
+                console.log('Markdown loaded from: ' + path)
                 $scope.rawText = response.data   // set content.
             }, function(response) {              // error:
                 $scope.rawText = ''              // reset content.
@@ -73,6 +110,7 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window)
         var reader = new FileReader()
         reader.onload = function(e) {
             $scope.$apply(function() {
+                console.log('Markdown read from disk.')
                 $scope.rawText = reader.result
             });
         };
@@ -93,6 +131,15 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window)
         if ($location.search().editMode!=undefined) {
             $scope.editMode = ($location.search().editMode=='true') ? true : false
         }
+        // if ($location.search().uiLang!=undefined) {
+        //     switch ($location.search().uiLang) {
+        //         case 'english':
+        //             $scope.uiLang = $scope.uiLangs[1]
+        //             break
+        //         default:
+        //             $scope.uiLang = $scope.uiLangs[0]
+        //     }
+        // }
     };
 
     // save markdown as plain text
@@ -128,13 +175,5 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window)
             $scope.rawText = ''
         }
     }
-
-    // checks /#?query=params for changes, and reloads markdown
-    $scope.$watch(function() {
-        return $location.search()
-    }, function(x) {
-        $scope.loadMarkdown()
-        $scope.loadSettings()
-    });
 
 });

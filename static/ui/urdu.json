@@ -1,0 +1,22 @@
+{
+    "button": {
+        "ok": "ٹھیک",
+        "cancel": "منسوخ",
+        "help": "مدد",
+        "html": "HTML",
+        "open": "کھولیں",
+        "new": "نیا",
+        "export": "درآمد",
+        "save": "محفوظ"
+    },
+    "option": {
+        "nightMode": "انداز رات",
+        "editMode": "انداز تصیح"
+    },
+    "prompt": {
+        "openLink": "دستاویز کا اِنٹرنیٹ لِنک ڈالیں:",
+        "openFile": "یا کمپیوٹر سے دستاویز چنیں:",
+        "selectFile": "دستاویزات۔۔۔"
+    },
+    "helpLink": "#?src=.%2Fdocs%2Furdown.md"
+}

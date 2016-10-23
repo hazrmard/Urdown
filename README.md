@@ -13,7 +13,7 @@ rules are the same as [Showdown.js](https://github.com/showdownjs/showdown/wiki/
 [**Urdown**](https://hazrmard.github.io/Urdown) is a fully client-side app that
 can:  
 
-* Render markdown instantaneously,
+* Render markdown instantly,
 * Load markdown files from a URL,
 * Load markdown files from disk,
 * Save markdown files to disk,
@@ -40,7 +40,11 @@ web pages.
 There are several excellent Urdu keyboards available. I use a phonetic keyboard
 that can be found [here](https://urdu.ca/1). For convenience, you can quickly
 switch between languages on your computer by using `Alt+Shift` (Windows) and
-`Command+Space` or `Command+Option+Space` (Mac).
+`Command+Space` or `Command+Option+Space` (Mac).  
+
+For Chrome users, you can add the [Google Input Tools](https://www.google.com/inputtools/try/)
+extension that allows you to use phonetic and standard Urdu keyboards on your
+browser.
 
 ### Compatibility
 I have tested **Urdown** on Internet Explorer 11, Edge, and Chrome 53. The best

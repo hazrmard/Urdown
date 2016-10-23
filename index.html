@@ -22,16 +22,20 @@
 
 <div id="top">
         <div id="options">
-            <label>انداز رات<input type="checkbox" ng-model=nightMode></input></label>
-            <label>انداز تصیح<input type="checkbox" ng-model=editMode ng-change="restoreContainer()"></input></label>
+            <div><label>{{ui.option.nightMode}}<input type="checkbox" ng-model=nightMode></input></label></div>
+            <div><label>{{ui.option.editMode}}<input type="checkbox" ng-model=editMode ng-change="restoreContainer()"></input></label></div>
+            <img src="./static/img/language.png" width="20px"/>
+            <select ng-options="option.label for option in uiLangs track by option.value"
+                    ng-model="uiLang" ng-change="loadUI()">
+            </select>
         </div>
         <div id="menu">
-            <a href="/Urdown/#?src=.%2Fdocs%2Furdown.md" target="_blank"><div class="hvr-border-fade">مدد</div></a>
-            <div class="hvr-border-fade" ng-click="saveMarkdown()">محفوظ</div>
-            <div class="hvr-border-fade" ng-click="printOutput()">برآمد</div>
-            <div class="hvr-border-fade" ng-click="showHTMLPrompt=!showHTMLPrompt; showOpenPrompt=false; showHTMLPrompt ? showHTML():null">HTML</div>
-            <div class="hvr-border-fade" ng-click="newMarkdown()">نیا</div>
-            <div class="hvr-border-fade" ng-click="outHTML=''; showHTMLPrompt=false; showOpenPrompt=!showOpenPrompt">کھولیں</div>
+            <a href="{{ui.helpLink}}" target="_blank"><div class="hvr-border-fade">{{ui.button.help}}</div></a>
+            <div class="hvr-border-fade" ng-click="saveMarkdown()">{{ui.button.save}}</div>
+            <div class="hvr-border-fade" ng-click="printOutput()">{{ui.button.export}}</div>
+            <div class="hvr-border-fade" ng-click="showHTMLPrompt=!showHTMLPrompt; showOpenPrompt=false; showHTMLPrompt ? showHTML():null">{{ui.button.html}}</div>
+            <div class="hvr-border-fade" ng-click="newMarkdown()">{{ui.button.new}}</div>
+            <div class="hvr-border-fade" ng-click="outHTML=''; showHTMLPrompt=false; showOpenPrompt=!showOpenPrompt">{{ui.button.open}}</div>
         </div>
 </div>
 
@@ -43,15 +47,15 @@
 </div>
 
 <div id="prompt" ng-show="showOpenPrompt || showHTMLPrompt">
-    <div ng-show="showOpenPrompt">دستاویز کا اِنٹرنیٹ لِنک ڈالیں:</div>
+    <div ng-show="showOpenPrompt">{{ui.prompt.openLink}}</div>
     <input ng-show="showOpenPrompt" type="text" dir="ltr" ng-model="promptInput" ng-enter="showOpenPrompt=false; getMarkdown(promptInput)"></input>
-    <div ng-show="showOpenPrompt">یا کمپیوٹر سے دستاویز چنیں: </div>
+    <div ng-show="showOpenPrompt">{{ui.prompt.openFile}}</div>
     <input ng-show="showOpenPrompt" id="fileinput" type="file" accept="text/*" onchange="angular.element(this).scope().readMarkdown()"></input>
-    <label ng-show="showOpenPrompt" for="fileinput" id="fileinput_label" class="hvr-border-fade">دستاویزات۔۔۔</label>
+    <label ng-show="showOpenPrompt" for="fileinput" id="fileinput_label" class="hvr-border-fade">{{ui.prompt.selectFile}}</label>
     <div dir="ltr" id="html_output" ng-show="showHTMLPrompt" contenteditable>{{outHTML}}</div>
     <div id="prompt_commands">
-        <div ng-show="showOpenPrompt" class="hvr-border-fade" ng-click="showOpenPrompt=false; getMarkdown(promptInput)">ٹھیک</div>
-        <div class="outHTML=''; hvr-border-fade" ng-click="showOpenPrompt=false; showHTMLPrompt=false">منسوخ</div>
+        <div ng-show="showOpenPrompt" class="hvr-border-fade" ng-click="showOpenPrompt=false; getMarkdown(promptInput)">{{ui.button.ok}}</div>
+        <div class="outHTML=''; hvr-border-fade" ng-click="showOpenPrompt=false; showHTMLPrompt=false">{{ui.button.cancel}}</div>
     </div>
 </div>
 
