@@ -11,13 +11,13 @@
 
 ،،،
 Urdown is a web-based markdown editor for Urdu. The source is available on
-[Github](https://github.com/hazrmard/Urdown).  
-  
+[Github](https://github.com/hazrmard/Urdown).
+
 Install [Google Input Tools Extension](https://www.google.com/inputtools/try/) on  Chrome or [Urdu Phonetic Keyboard](http://urdu.ca/1) on your computer to begin typing in Urdu.
-  
-This is some english text. English text, when enclosed in 3 commas on either side
-becomes left-aligned. It follows the same markdown rules as the Urdu text. For
-example, you can:
+
+This is some english text. Text, when enclosed in 3 commas on either side
+gets the opposite alignment to the default direction. It follows the same
+markdown rules as the Urdu text. For example, you can:
 * Make text **bold like this**.
 * Or make it *slanted like this*.
 * [Or add a hyperlink like this.](http://iahmed.me)

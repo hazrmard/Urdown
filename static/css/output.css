@@ -1,17 +1,21 @@
 @import url(https://fonts.googleapis.com/earlyaccess/notonastaliqurdudraft.css);
 
+/*Styles for non-code/pre elements*/
 #output_inner:not(code):not(pre)  {
     font-family: 'Noto Nastaliq Urdu Draft', serif;
 }
 
+/*Styles for code/pre elements (blocks and inline)*/
 #output_inner code, #output_inner pre {
     background-color: #dbdde0;
 }
 
+/*Style for pre elements (code blocks, not inline)*/
 #output_inner pre {
     padding: 0.5em;
 }
 
+/*Styles for non-code/pre elements in opposite text direction*/
 #output_inner .ltr_div :not(code):not(pre) {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }

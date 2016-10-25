@@ -59,6 +59,12 @@ html, body {
     width: 40%;
     float: right;
 }
+/*.rtl #raw_text {
+    float: right;
+}*/
+/*.ltr #raw_text {
+    float: left;
+}*/
 #output_outer {
     overflow-x: auto;
 }

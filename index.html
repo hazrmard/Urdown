@@ -32,6 +32,7 @@
             <select ng-options="option.label for option in uiLangs track by option.value"
                     ng-model="uiLang" ng-change="loadUI()">
             </select>
+            <div class="hvr-border-fade" ng-click="reverseDir()"><img src="./static/img/switch.png" width="16px"/></div>
         </div>
         <div id="menu">
             <a class="github-button" href="https://github.com/hazrmard/Urdown" data-count-href="/hazrmard/Urdown/stargazers" data-count-api="/repos/hazrmard/Urdown#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star hazrmard/Urdown on GitHub">Star</a>
@@ -44,14 +45,14 @@
         </div>
 </div>
 
-<div id="data_container">
-    <textarea autofocus id="raw_text" placeholder="{{placeholder}}" ng-model="rawText" ng-show="editMode" ng-init="loadMarkdown()"></textarea>
+<div id="data_container" dir="{{defaultDir}}">
+    <textarea autofocus id="raw_text" ng-class="defaultDir" placeholder="{{placeholder}}" ng-model="rawText" ng-show="editMode" ng-init="loadMarkdown()"></textarea>
     <div id="output_outer">
-        <div id="output_inner" dir="rtl" markdown-to-html="rawText.length === 0 ? placeholder : rawText"></div>
+        <div id="output_inner" markdown-to-html="rawText.length === 0 ? placeholder : rawText"></div>
     </div>
 </div>
 
-<div id="prompt" ng-show="showOpenPrompt || showHTMLPrompt">
+<div id="prompt" ng-show="showOpenPrompt || showHTMLPrompt || showOppDirPrompt">
     <div ng-show="showOpenPrompt">{{ui.prompt.openLink}}</div>
     <input ng-show="showOpenPrompt" type="text" dir="ltr" ng-model="promptInput" ng-enter="showOpenPrompt=false; getMarkdown(promptInput)"></input>
     <div ng-show="showOpenPrompt">{{ui.prompt.openFile}}</div>
@@ -59,8 +60,8 @@
     <label ng-show="showOpenPrompt" for="fileinput" id="fileinput_label" class="hvr-border-fade">{{ui.prompt.selectFile}}</label>
     <div dir="ltr" id="html_output" ng-show="showHTMLPrompt" contenteditable>{{outHTML}}</div>
     <div id="prompt_commands">
-        <div ng-show="showOpenPrompt" class="hvr-border-fade" ng-click="showOpenPrompt=false; getMarkdown(promptInput)">{{ui.button.ok}}</div>
-        <div class="outHTML=''; hvr-border-fade" ng-click="showOpenPrompt=false; showHTMLPrompt=false">{{ui.button.cancel}}</div>
+        <div ng-show="showOpenPrompt || showOppDirPrompt" class="hvr-border-fade" ng-click="showOpenPrompt=false; showOppDirPrompt=false; getMarkdown(promptInput)">{{ui.button.ok}}</div>
+        <div nog-show="!showHTMLPrompt" class="hvr-border-fade" ng-click="outHTML=''; showOpenPrompt=false; showHTMLPrompt=false">{{ui.button.cancel}}</div>
     </div>
 </div>
 

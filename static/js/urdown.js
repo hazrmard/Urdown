@@ -1,51 +1,51 @@
+OPPOSITE_DIR = 'ltr'
 // This sets up an extension object to be passed to showdown.
 // The englishBlock extension sets the direction of text within to left-to-right
 // myext1 wraps english text with %% markers, and lets the inner text be
 // formatted as usual
 // myext2 escapes 3 instances of comma characters
 // myext3 converts %% wrapped text into left-to-right div
-var englishBlock = function (sd) {  // sd is now redundant
-    return function() {
-        var myext1 = {
-          type: 'lang',
-          regex: /[\n\r]+?[,|،]{3}([\s\S]+?)[\n\r]+[,|،]{3}[\s]+?/gm,
-        //   replace: function(match, capture) {
-        //       return '\n<div dir="ltr" class="ltr_div">'+sd.makeHtml(capture)+'</div>\n';
-        //   }
-          replace: '%ENGBLOCKSTART%\n$1\n%ENGBLOCKEND%'
-        };
+var oppositeBlock = function () {  // sd is now redundant
+    var myext1 = {
+      type: 'lang',
+      regex: /[\n\r]+?[,|،]{3}([\s\S]+?)[\n\r]+[,|،]{3}[\s]+?/gm,
+      replace: '%ENGBLOCKSTART%\n$1\n%ENGBLOCKEND%'
+    };
 
-        var myext2 = {
-          type: 'output',
-          regex: /\\([,|،]{3})/gm,
-          replace: '$1'
-        };
+    var myext2 = {
+      type: 'output',
+      regex: /\\([,|،]{3})/gm,
+      replace: '$1'
+    };
 
-        var myext3 = {
-            type: 'output',
-            regex: /%ENGBLOCKSTART%([\s\S]+?)%ENGBLOCKEND%/gm,
-            replace: '\n<div dir="ltr" class="ltr_div">$1</div>\n'
+    var myext3 = {
+        type: 'output',
+        regex: /%ENGBLOCKSTART%([\s\S]+?)%ENGBLOCKEND%/gm,
+        replace: function(match, capture) {
+            return '\n<div dir="'+OPPOSITE_DIR+'" class="'+OPPOSITE_DIR+'_div">'+capture+'</div>\n'
         }
-        return [myext1, myext2, myext3];
     }
+    return [myext1, myext2, myext3];
 };
 
-showdown.extensions.englishblock = englishBlock(new showdown.Converter())
+showdown.extensions.oppositeblock = oppositeBlock
 
 // setting up the main angular app
 var urdown = angular.module('Urdown', ['ng-showdown'])
 urdown.config(function($showdownProvider) {
-    $showdownProvider.loadExtension('englishblock')
+    $showdownProvider.loadExtension('oppositeblock')
 });
 
 // setting up controller
-urdown.controller('urdownConverter', function($scope, $http, $location, $window) {
-    $scope.rawText = ''
-    $scope.nightMode = false
-    $scope.editMode = true
-    $scope.showOpenPrompt = false
-    $scope.showHTMLPrompt = false
-    $scope.outHTML = ''
+urdown.controller('urdownConverter', function($scope, $http, $location, $window, $showdown) {
+    $scope.rawText = ''                 // contains whatever is in textarea
+    $scope.nightMode = false            // control for .night style
+    $scope.editMode = true              // show textarea or not
+    $scope.showOpenPrompt = false       // prompt div shows open relevant content
+    $scope.showHTMLPrompt = false       // prompt div shows HTML output content
+    $scope.showOppDirPrompt = false     // prompt div shows opp dir text input
+    $scope.defaultDir = 'rtl'
+    $scope.outHTML = ''                 // HTML output shown through HTML button (includes style)
     $scope.uiLang = {'label':'اُردو', 'value': 'urdu'}
     $scope.uiLangs = [
                         {'label':'اُردو', 'value': 'urdu'},         // index 0
@@ -171,8 +171,8 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window)
             method: 'GET',
             url: './static/css/output.css'
         }).then(function(response) {         // successful request:
-            $scope.outHTML = '<div id="output_outer"><style scoped>'+response.data+
-                '</style>'+out+'</div>'
+            $scope.outHTML = '<div id="output_outer" dir="'+$scope.defaultDir+
+                '"><style scoped>'+response.data+'</style>'+out+'</div>'
         }, function(response) {              // error:
             console.log('Could not load CSS file')
         });
@@ -187,4 +187,15 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window)
         }
     }
 
+    // reverses default text entry direction
+    $scope.reverseDir = function() {
+        if ($scope.defaultDir=='rtl') {
+            $scope.defaultDir = 'ltr'
+            OPPOSITE_DIR = 'rtl'
+        } else if ($scope.defaultDir=='ltr') {
+            $scope.defaultDir = 'rtl'
+            OPPOSITE_DIR = 'ltr'
+        }
+
+    }
 });
