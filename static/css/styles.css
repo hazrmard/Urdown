@@ -47,6 +47,8 @@ html, body {
     height: 93%;
     overflow: hidden;
     padding: 0 0 1em 0;
+    display: inline-flex;
+    justify-content: space-around;
 }
 #output_outer, #raw_text {
     padding: 1em 2em 0.5em 2em;
@@ -56,17 +58,23 @@ html, body {
     top: 0px;
 }
 #raw_text {
-    width: 40%;
-    float: right;
+    width: 47.5%;
 }
-/*.rtl #raw_text {
-    float: right;
-}*/
-/*.ltr #raw_text {
-    float: left;
-}*/
 #output_outer {
+    width: 47.5%;
     overflow-x: auto;
+}
+.rtl #raw_text {
+    /*float: right;*/
+}
+.rtl #output_outer {
+    /*float: left;*/
+}
+.ltr #raw_text {
+    /*float: left;*/
+}
+.ltr #output_outer {
+    /*float: right;*/
 }
 
 /*style for prompt div*/

@@ -47,7 +47,7 @@
 
 <div id="data_container" dir="{{defaultDir}}">
     <textarea autofocus id="raw_text" ng-class="defaultDir" placeholder="{{placeholder}}" ng-model="rawText" ng-show="editMode" ng-init="loadMarkdown()"></textarea>
-    <div id="output_outer">
+    <div id="output_outer" ng-class="defaultDir">
         <div id="output_inner" markdown-to-html="rawText.length === 0 ? placeholder : rawText"></div>
     </div>
 </div>
@@ -61,7 +61,7 @@
     <div dir="ltr" id="html_output" ng-show="showHTMLPrompt" contenteditable>{{outHTML}}</div>
     <div id="prompt_commands">
         <div ng-show="showOpenPrompt || showOppDirPrompt" class="hvr-border-fade" ng-click="showOpenPrompt=false; showOppDirPrompt=false; getMarkdown(promptInput)">{{ui.button.ok}}</div>
-        <div nog-show="!showHTMLPrompt" class="hvr-border-fade" ng-click="outHTML=''; showOpenPrompt=false; showHTMLPrompt=false">{{ui.button.cancel}}</div>
+        <div class="hvr-border-fade" ng-click="outHTML=''; showOpenPrompt=false; showHTMLPrompt=false">{{ui.button.cancel}}</div>
     </div>
 </div>
 

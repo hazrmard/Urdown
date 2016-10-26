@@ -22,7 +22,7 @@ var oppositeBlock = function () {  // sd is now redundant
         type: 'output',
         regex: /%ENGBLOCKSTART%([\s\S]+?)%ENGBLOCKEND%/gm,
         replace: function(match, capture) {
-            return '\n<div dir="'+OPPOSITE_DIR+'" class="'+OPPOSITE_DIR+'_div">'+capture+'</div>\n'
+            return '\n<div dir="'+OPPOSITE_DIR+'" class="opp_dir_div '+OPPOSITE_DIR+'_div">'+capture+'</div>\n'
         }
     }
     return [myext1, myext2, myext3];
@@ -189,6 +189,14 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window,
 
     // reverses default text entry direction
     $scope.reverseDir = function() {
+        // invert opposite direction divs' dir attribute.
+        // the dir attribute is automatically inverted the next time showdown
+        // parses rawTest, but this makes the change instantaneous.
+        var oppDivs = document.querySelectorAll('#output_inner .opp_dir_div')
+        for (var i=0; i<oppDivs.length; i++) {
+            oppDivs[i].setAttribute('dir', $scope.defaultDir)
+        }
+        // invert main text's dir attribute
         if ($scope.defaultDir=='rtl') {
             $scope.defaultDir = 'ltr'
             OPPOSITE_DIR = 'rtl'
@@ -196,6 +204,5 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window,
             $scope.defaultDir = 'rtl'
             OPPOSITE_DIR = 'ltr'
         }
-
     }
 });
