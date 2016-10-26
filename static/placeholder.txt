@@ -7,17 +7,16 @@
 * *متن کو تِرچھا کر سکتے ہیں*۔
 * متن کو [دوسری وِیب سایٔٹ سے جوڑ سکتے ہیں۔](http://iahmed.me)
 
-اِس کے علاوہ آپ انگریزی میں بھی متن ڈال سکتے ہیں:
+اِس کے علاوہ آپ انگریزی میں بھی متن ڈال سکتے ہیں۔ جب متن دونوں طرف `،،،` میں بند ہو تو اُس کی سمت تبدیل ہو جاتی ہے:
 
 ،،،
-Urdown is a web-based markdown editor for Urdu. The source is available on
-[Github](https://github.com/hazrmard/Urdown).
+Urdown is a web-based markdown editor for Urdu, with support for other languages. The source is available on [Github](https://github.com/hazrmard/Urdown).
 
-Install [Google Input Tools Extension](https://www.google.com/inputtools/try/) on  Chrome or [Urdu Phonetic Keyboard](http://urdu.ca/1) on your computer to begin typing in Urdu.
+Install [Google Input Tools Extension](https://www.google.com/inputtools/try/) on  Chrome or [Urdu Phonetic Keyboard](http://urdu.ca/1) on your computer to begin typing in Urdu. The Google extension optionally lets you type in other scripts too.
 
-This is some english text. Text, when enclosed in 3 commas on either side
+This is some English text. Text, when enclosed in 3 commas on either side
 gets the opposite alignment to the default direction. It follows the same
-markdown rules as the Urdu text. For example, you can:
+markdown rules as the other text. For example, you can:
 * Make text **bold like this**.
 * Or make it *slanted like this*.
 * [Or add a hyperlink like this.](http://iahmed.me)

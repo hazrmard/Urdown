@@ -122,6 +122,7 @@ clicked at a non-zero scroll position, the resulting data_container contents
 are still scrolled. This is fixed by the restoreContainer function.*/
 .read #data_container {
     overflow: auto;
+    display: block;
 }
 .read #output_outer {
     width: 70%;

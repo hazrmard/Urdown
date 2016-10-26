@@ -142,6 +142,11 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window,
         if ($location.search().editMode!=undefined) {
             $scope.editMode = ($location.search().editMode=='true') ? true : false
         }
+        if ($location.search().dir!=undefined) {
+            if ($scope.defaultDir!=$location.search().dir) {
+                $scope.reverseDir()
+            }
+        }
         // if ($location.search().uiLang!=undefined) {
         //     switch ($location.search().uiLang) {
         //         case 'english':
@@ -191,7 +196,7 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window,
     $scope.reverseDir = function() {
         // invert opposite direction divs' dir attribute.
         // the dir attribute is automatically inverted the next time showdown
-        // parses rawTest, but this makes the change instantaneous.
+        // parses rawText, but this makes the change instantaneous.
         var oppDivs = document.querySelectorAll('#output_inner .opp_dir_div')
         for (var i=0; i<oppDivs.length; i++) {
             oppDivs[i].setAttribute('dir', $scope.defaultDir)

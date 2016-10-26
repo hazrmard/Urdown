@@ -52,9 +52,9 @@
     </div>
 </div>
 
-<div id="prompt" ng-show="showOpenPrompt || showHTMLPrompt || showOppDirPrompt">
+<div id="prompt" dir="{{defaultDir}}" ng-show="showOpenPrompt || showHTMLPrompt || showOppDirPrompt">
     <div ng-show="showOpenPrompt">{{ui.prompt.openLink}}</div>
-    <input ng-show="showOpenPrompt" type="text" dir="ltr" ng-model="promptInput" ng-enter="showOpenPrompt=false; getMarkdown(promptInput)"></input>
+    <input ng-show="showOpenPrompt" type="text" ng-model="promptInput" ng-enter="showOpenPrompt=false; getMarkdown(promptInput)"></input>
     <div ng-show="showOpenPrompt">{{ui.prompt.openFile}}</div>
     <input ng-show="showOpenPrompt" id="fileinput" type="file" accept="text/*" onchange="angular.element(this).scope().readMarkdown()"></input>
     <label ng-show="showOpenPrompt" for="fileinput" id="fileinput_label" class="hvr-border-fade">{{ui.prompt.selectFile}}</label>
