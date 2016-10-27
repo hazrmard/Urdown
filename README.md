@@ -5,7 +5,7 @@ Live demo at [https://hazrmard.github.io/Urdown](https://hazrmard.github.io/Urdo
 
 For documentation in Urdu, go to [https://hazrmard.github.io/Urdown/#?src=.%2Fdocs%2Furdown.md](https://hazrmard.github.io/Urdown/#?src=.%2Fdocs%2Furdown.md).  
 
-For documentation in English, go to [https://hazrmard.github.io/Urdown/#?src=.%2Fdocs%2Furdown_english.md&dir=ltr](https://hazrmard.github.io/Urdown/#?src=.%2Fdocs%2Furdown.md&dir=ltr).  
+For documentation in English, go to [https://hazrmard.github.io/Urdown/#?src=.%2Fdocs%2Furdown_english.md&dir=ltr](https://hazrmard.github.io/Urdown/#?src=.%2Fdocs%2Furdown_english.md&dir=ltr).  
 
 **Urdown** (Udru + Markdown) is an online markdown editor with preference for right-to-left
 languages like Urdu. It supports left-to-right languages as well. It can embed blocks of 
