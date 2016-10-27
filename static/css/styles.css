@@ -64,18 +64,6 @@ html, body {
     width: 47.5%;
     overflow-x: auto;
 }
-.rtl #raw_text {
-    /*float: right;*/
-}
-.rtl #output_outer {
-    /*float: left;*/
-}
-.ltr #raw_text {
-    /*float: left;*/
-}
-.ltr #output_outer {
-    /*float: right;*/
-}
 
 /*style for prompt div*/
 #prompt {
@@ -88,7 +76,7 @@ html, body {
     max-height: 60%;
     overflow: hidden;
 }
-#prompt input[type="text"], #prompt_commands {
+#prompt input[type="text"], #prompt_commands, #opp_input {
     padding: 0.2em;
     margin: 0.5em;
     width: 90%;
@@ -108,11 +96,14 @@ html, body {
     width: 90%;
     text-align: center;
 }
-#html_output {
+#html_output, #opp_input {
     max-height: 50vh;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0.5em;
+}
+#opp_input {
+    min-height: 30vh;
 }
 
 /*Read mode = !editMode*/
@@ -138,7 +129,7 @@ are still scrolled. This is fixed by the restoreContainer function.*/
 .day, .day * {
     color: black;
 }
-.day textarea {
+.day textarea, .day #opp_input {
     background-color: #F1F1D4;
 }
 .day #output-inner, .day #output_outer {
@@ -169,7 +160,7 @@ are still scrolled. This is fixed by the restoreContainer function.*/
 #output_inner pre *, #output_inner code, input[type="text"] {
     color: black;
 }
-.night textarea {
+.night textarea, .night #opp_input {
     background-color: #202020;
 }
 .night #output_inner, .night #output_outer {
@@ -231,5 +222,9 @@ are still scrolled. This is fixed by the restoreContainer function.*/
     top: 0;
     width: 100%;
     background-color: white !important;
+  }
+  #output_inner pre {
+      overflow-x: auto !important;
+      white-space: normal !important;
   }
 }

@@ -44,8 +44,11 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window,
     $scope.showOpenPrompt = false       // prompt div shows open relevant content
     $scope.showHTMLPrompt = false       // prompt div shows HTML output content
     $scope.showOppDirPrompt = false     // prompt div shows opp dir text input
-    $scope.defaultDir = 'rtl'
+    $scope.defaultDir = 'rtl'           // direction (rtl | ltr) of main text body
+    $scope.oppDir = 'ltr'               // mirrors OPPOSITE_DIR global variable
+    $scope.ctrlPressed = false          // whether control key is pressed
     $scope.outHTML = ''                 // HTML output shown through HTML button (includes style)
+    $scope.oppDirText = ''              // text entered in the opp_dir_div
     $scope.uiLang = {'label':'اُردو', 'value': 'urdu'}
     $scope.uiLangs = [
                         {'label':'اُردو', 'value': 'urdu'},         // index 0
@@ -62,7 +65,120 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window,
         $scope.loadSettings()
     });
 
-    // loads ui elements
+    // track shortcut key combinations, called on body ng-keypress
+    $scope.shortcutHandler = function($event) {
+        if (event.ctrlKey) {
+            switch ($event.keyCode || $event.key) {
+                case ',':   // ctrl+, or ctrl+،
+                case '،':
+                case 188:
+                    $event.preventDefault()
+                    $scope.showOppDirPrompt = !$scope.showOppDirPrompt
+                    if ($scope.showOppDirPrompt) {
+                        var start = document.getElementById('raw_text').selectionStart
+                        var end = document.getElementById('raw_text').selectionEnd
+                        $scope.oppDirText = $scope.rawText.slice(start, end)
+                        $scope.focus('opp_input')
+                    }
+                    $scope.showHTMLPrompt = false
+                    $scope.showOpenPrompt = false
+                    break
+
+                case 13:    // enter key
+                    $event.preventDefault()
+                    $scope.okHandler()
+                    break
+
+                case 'o':   // ctrl+o
+                case 79:
+                    $event.preventDefault()
+                    $scope.openHandler()
+                    break
+
+                case 'm':   // ctrl+m
+                case 77:
+                    $event.preventDefault()
+                    $scope.newMarkdown()
+                    break
+
+                case 's':   // ctrl+s
+                case 83:
+                    $event.preventDefault()
+                    $scope.saveMarkdown()
+                    break
+
+                case 'h':   // ctrl+h
+                case 72:
+                    $event.preventDefault()
+                    $scope.showOpenPrompt = false
+                    $scope.showOppDirPrompt = false
+                    $scope.showHTMLPrompt = !$scope.showHTMLPrompt
+                    if ($scope.showHTMLPrompt) $scope.showHTML()
+                    break
+
+                case 'e':   // ctrl+e
+                case  69:
+                    $event.preventDefault()
+                    $scope.editMode = !$scope.editMode
+                    break
+
+                case 'd':   // ctrl+d
+                case  68:
+                    $event.preventDefault()
+                    $scope.nightMode = !$scope.nightMode
+                    break
+            }
+        } else if ((27==$event.keyCode) || ('Escape'==$event.key)) {  // escape key
+            $event.preventDefault()
+            $scope.escHandler()
+        }
+    }
+
+    // focuses on element
+    $scope.focus = function(id) {
+        window.setTimeout(function() {
+            document.getElementById(id).focus()
+        }, 0)
+    }
+
+    // handles ctrl+enter/OK button
+    $scope.okHandler = function() {
+        if ($scope.showOpenPrompt) {
+            $scope.getMarkdown()
+        } else if ($scope.showOppDirPrompt) {
+            var start = document.getElementById('raw_text').selectionStart
+            var end = document.getElementById('raw_text').selectionEnd
+            $scope.rawText = $scope.rawText.slice(0, start)+'\n,,,\n'+$scope.oppDirText+'\n,,,\n'+$scope.rawText.slice(end, $scope.rawText.length+1)
+            $scope.oppDirText = ''
+        }
+        $scope.showOppDirPrompt = false
+        $scope.showOpenPrompt = false
+        $scope.focus('raw_input')
+    }
+
+    // handles escape/cancel button
+    $scope.escHandler = function() {
+        $scope.showHTMLPrompt = false
+        $scope.showOppDirPrompt = false
+        $scope.showOpenPrompt = false
+        $scope.outHTML = ''
+        $scope.focus('raw_text')
+    }
+
+    // handles open button
+    $scope.openHandler = function() {
+        $scope.showHTMLPrompt = false
+        $scope.showOppDirPrompt = false
+        $scope.showOpenPrompt = !$scope.showOpenPrompt
+        if ($scope.showOpenPrompt) $scope.focus('open_link_text')
+    }
+
+    // load placeholder text to be rendered
+    $http.get('./static/placeholder.txt').success(function(response) {
+        $scope.placeholder = response
+    });
+
+    // loads ui elements, called at initialization, when selection changes
     $scope.loadUI = function() {
         $http({
             method: 'GET',
@@ -74,13 +190,6 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window,
             console.log('Could not load ui.')
         });
     }
-
-    // load placeholder text to be rendered
-    $http.get('./static/placeholder.txt').success(function(response) {
-        $scope.placeholder = response
-    });
-    // load default ui
-    $scope.loadUI()
 
     // restores unintentional residual scroll during read mode
     $scope.restoreContainer = function() {
@@ -187,9 +296,8 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window,
     $scope.newMarkdown = function() {
         if ($location.search().src!=undefined) {
             $location.search('src',null)
-        } else {
-            $scope.rawText = ''
         }
+        $scope.rawText = ''
     }
 
     // reverses default text entry direction
@@ -209,5 +317,6 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window,
             $scope.defaultDir = 'rtl'
             OPPOSITE_DIR = 'ltr'
         }
+        $scope.oppDir = OPPOSITE_DIR
     }
 });

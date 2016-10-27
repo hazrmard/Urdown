@@ -21,7 +21,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 </head>
 
-<body ng-controller="urdownConverter" ng-class="{day: !nightMode, night: nightMode}">
+<body ng-controller="urdownConverter" ng-class="{day: !nightMode, night: nightMode}" ng-keyDown="shortcutHandler($event)" ng-init="loadUI()">
 <div id="container" ng-class="{read:!editMode}">
 
 <div id="top">
@@ -39,9 +39,9 @@
             <a href="{{ui.helpLink}}" target="_blank"><div class="hvr-border-fade">{{ui.button.help}}</div></a>
             <div class="hvr-border-fade" ng-click="saveMarkdown()">{{ui.button.save}}</div>
             <div class="hvr-border-fade" ng-click="printOutput()">{{ui.button.export}}</div>
-            <div class="hvr-border-fade" ng-click="showHTMLPrompt=!showHTMLPrompt; showOpenPrompt=false; showHTMLPrompt ? showHTML():null">{{ui.button.html}}</div>
+            <div class="hvr-border-fade" ng-click="showHTMLPrompt=!showHTMLPrompt; showOpenPrompt=false; showOppDirPrompt=false; showHTMLPrompt?showHTML():null">{{ui.button.html}}</div>
             <div class="hvr-border-fade" ng-click="newMarkdown()">{{ui.button.new}}</div>
-            <div class="hvr-border-fade" ng-click="outHTML=''; showHTMLPrompt=false; showOpenPrompt=!showOpenPrompt">{{ui.button.open}}</div>
+            <div class="hvr-border-fade" ng-click="openHandler()">{{ui.button.open}}</div>
         </div>
 </div>
 
@@ -54,14 +54,15 @@
 
 <div id="prompt" dir="{{defaultDir}}" ng-show="showOpenPrompt || showHTMLPrompt || showOppDirPrompt">
     <div ng-show="showOpenPrompt">{{ui.prompt.openLink}}</div>
-    <input ng-show="showOpenPrompt" type="text" ng-model="promptInput" ng-enter="showOpenPrompt=false; getMarkdown(promptInput)"></input>
+    <input ng-show="showOpenPrompt" id="open_link_text" type="text" ng-model="promptInput" ng-enter="showOpenPrompt=false; getMarkdown(promptInput)"></input>
     <div ng-show="showOpenPrompt">{{ui.prompt.openFile}}</div>
-    <input ng-show="showOpenPrompt" id="fileinput" type="file" accept="text/*" onchange="angular.element(this).scope().readMarkdown()"></input>
+    <input ng-show="showOpenPrompt" id="fileinput" type="file" accept="text/*, *.md" onchange="angular.element(this).scope().readMarkdown()"></input>
     <label ng-show="showOpenPrompt" for="fileinput" id="fileinput_label" class="hvr-border-fade">{{ui.prompt.selectFile}}</label>
     <div dir="ltr" id="html_output" ng-show="showHTMLPrompt" contenteditable>{{outHTML}}</div>
+    <textarea autofocus dir={{oppDir}} id="opp_input" ng-model="oppDirText" ng-show="showOppDirPrompt"></textarea>
     <div id="prompt_commands">
-        <div ng-show="showOpenPrompt || showOppDirPrompt" class="hvr-border-fade" ng-click="showOpenPrompt=false; showOppDirPrompt=false; getMarkdown(promptInput)">{{ui.button.ok}}</div>
-        <div class="hvr-border-fade" ng-click="outHTML=''; showOpenPrompt=false; showHTMLPrompt=false">{{ui.button.cancel}}</div>
+        <div ng-show="showOpenPrompt || showOppDirPrompt" class="hvr-border-fade" ng-click="okHandler()">{{ui.button.ok}}</div>
+        <div class="hvr-border-fade" ng-click="escHandler()">{{ui.button.cancel}}</div>
     </div>
 </div>
 

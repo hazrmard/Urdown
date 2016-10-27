@@ -1,14 +1,16 @@
-# Urdown
+﻿# Urdown
 An online Urdu markdown editor written with AngularJS | انٹرنیٹ پر مبنی ٹیکسٹ ایڈیٹر
 
 Live demo at [https://hazrmard.github.io/Urdown](https://hazrmard.github.io/Urdown).  
 
 For documentation in Urdu, go to [https://hazrmard.github.io/Urdown/#?src=.%2Fdocs%2Furdown.md](https://hazrmard.github.io/Urdown/#?src=.%2Fdocs%2Furdown.md).  
 
+For documentation in English, go to [https://hazrmard.github.io/Urdown/#?src=.%2Fdocs%2Furdown_english.md&dir=ltr](https://hazrmard.github.io/Urdown/#?src=.%2Fdocs%2Furdown.md&dir=ltr).  
+
 **Urdown** (Udru + Markdown) is an online markdown editor with preference for right-to-left
-languages like Urdu. It can embed blocks of left-to-right languages like English by
-enclosing them in three commas `,,,` (in new lines). The rest of the markdown
-rules are the same as [Showdown.js](https://github.com/showdownjs/showdown/wiki/Showdown's-Markdown-syntax).  
+languages like Urdu. It supports left-to-right languages as well. It can embed blocks of 
+left-to-right languages like English by enclosing them in three commas `,,,` (in new lines). 
+The rest of the markdown rules are the same as [Showdown.js](https://github.com/showdownjs/showdown/wiki/Showdown's-Markdown-syntax).  
 
 [**Urdown**](https://hazrmard.github.io/Urdown) is a fully client-side app that
 can:  
@@ -24,12 +26,14 @@ can:
 
 In addition **Urdown** can render markdown files passed as URL arguments:  
 ```
-https://hazrmard.github.io/Urdown/#?src=URL_TO_MARKDOWN_FILE&editMode=[true|false]&nightMode=[true|false]
+https://hazrmard.github.io/Urdown/#?src=URL_TO_MARKDOWN_FILE&editMode=[true|false]&nightMode=[true|false]&dir=[ltr|rtl]
 ```
 
-Where `[true|false]` is a placeholder for either `true` or `false`. A possible
-use for this is to add that link in an `iframe` on another site to render Urdu
-markdown without having to mess with `HTML` tags etc.
+Where `[true|false]` is a placeholder for either `true` or `false`, and 
+`[ltr|rtl]` is a placeholder for either `rtl` (default, right-to-left) or 
+`ltr`. A possible use for this is to add that link in an `iframe` on 
+another site to render Urdu markdown without having to mess with 
+`HTML` tags etc.
 
 ### What is markdown?
 [`Markdown`](https://en.wikipedia.org/wiki/Markdown) is a lightweight way of
