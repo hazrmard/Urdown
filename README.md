@@ -52,4 +52,10 @@ browser.
 
 ### Compatibility
 I have tested **Urdown** on Internet Explorer 11, Edge, and Chrome 53. The best
-experience, by far, was on Chrome.
+experience, by far, was on Chrome.  
+
+### Contributing
+There are several venues for contributing:  
+
+* Add a new user interface language. To do that duplicate `static/ui/english.json` and name it to language of choice (in english). Then translate all strings on right hand side into your language. Then add your language option to `js/urdown.js` in the `UILANGS` variable at the top.
+* Add auto-scrolling feature. Currently you have to manually scroll down both the input and output panes to edit text longer than page height. A feature where the output pane scrolls to the corresponding location of the cursor on the input pane would be amazing.
