@@ -1,4 +1,9 @@
 OPPOSITE_DIR = 'ltr'
+UILANGS = [
+            {'label':'اُردو', 'value': 'urdu'},         // index 0
+            {'label': 'English', 'value':'english'}    // index 1
+        ]
+
 // This sets up an extension object to be passed to showdown.
 // The englishBlock extension sets the direction of text within to left-to-right
 // myext1 wraps english text with %% markers, and lets the inner text be
@@ -49,11 +54,8 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window,
     $scope.ctrlPressed = false          // whether control key is pressed
     $scope.outHTML = ''                 // HTML output shown through HTML button (includes style)
     $scope.oppDirText = ''              // text entered in the opp_dir_div
-    $scope.uiLang = {'label':'اُردو', 'value': 'urdu'}
-    $scope.uiLangs = [
-                        {'label':'اُردو', 'value': 'urdu'},         // index 0
-                        {'label': 'English', 'value':'english'}    // index 1
-                    ]
+    $scope.uiLangs = UILANGS
+    $scope.uiLang = $scope.uiLangs[0]
 
 
 
@@ -64,6 +66,22 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window,
         $scope.loadMarkdown()
         $scope.loadSettings()
     });
+
+    // Starts watching output_inner for changes in DOM elements, scrolls to
+    // position of the newest DOM element/change
+    // TODO: refine this.
+    // $scope.attachScroller = function() {
+    //     var target = document.getElementById('output_inner')
+    //     var observer = new MutationObserver(function(mutations) {
+    //         mutations.forEach(function(mutation) {
+    //             console.log(mutation)
+    //             target.scrollTop = mutation.target.offsetTop
+    //         });
+    //     });
+    //     var config = {subtree: false, childList: true, characterData: true}
+    //     observer.observe(target, config)
+    //     console.log('Scroller Attached!')
+    // }
 
     // track shortcut key combinations, called on body ng-keypress
     $scope.shortcutHandler = function($event) {
@@ -127,6 +145,13 @@ urdown.controller('urdownConverter', function($scope, $http, $location, $window,
                     $event.preventDefault()
                     $scope.nightMode = !$scope.nightMode
                     break
+
+                // TODO: remove this after auto scrolling refined
+                // case 'a':   //ctrl+a (attatches scroller - Dev only)
+                // case 65:
+                //     $event.preventDefault()
+                //     $scope.attachScroller()
+                //     break
             }
         } else if ((27==$event.keyCode) || ('Escape'==$event.key)) {  // escape key
             $event.preventDefault()

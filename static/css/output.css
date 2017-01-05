@@ -18,5 +18,5 @@
 /*Style for pre elements (only code blocks, not inline)*/
 #output_inner pre {
     padding: 0.5em;
-    overflow-x: scroll;
+    overflow-x: auto;
 }

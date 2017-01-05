@@ -48,7 +48,7 @@
 <div id="data_container" dir="{{defaultDir}}">
     <textarea autofocus id="raw_text" ng-class="defaultDir" placeholder="{{placeholder}}" ng-model="rawText" ng-show="editMode" ng-init="loadMarkdown()"></textarea>
     <div id="output_outer" ng-class="defaultDir">
-        <div id="output_inner" markdown-to-html="rawText.length === 0 ? placeholder : rawText"></div>
+        <div id="output_inner" ng-init="" markdown-to-html="rawText.length === 0 ? placeholder : rawText"></div>
     </div>
 </div>
 
