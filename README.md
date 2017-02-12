@@ -10,6 +10,8 @@ For documentation in English, go to [https://hazrmard.github.io/Urdown/#?src=.%2
 **Urdown** (Udru + Markdown) is an online markdown editor with preference for right-to-left
 languages like Urdu. It supports left-to-right languages as well. It can embed blocks of 
 left-to-right languages like English by enclosing them in three commas `,,,` (in new lines). 
+In addition, **Urdown** suports shortcodes for [HugoWiki](https://github.com/OpenUrdu/HugoWiki) hugo theme.
+Embedding text in `{{%rtl|ltr}}TEXT{{%\rtl|ltr%}}` will also produce directed output.
 The rest of the markdown rules are the same as [Showdown.js](https://github.com/showdownjs/showdown/wiki/Showdown's-Markdown-syntax).  
 
 [**Urdown**](https://hazrmard.github.io/Urdown) is a fully client-side app that

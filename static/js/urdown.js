@@ -29,16 +29,50 @@ var oppositeBlock = function () {  // sd is now redundant
         replace: function(match, capture) {
             return '\n<div dir="'+OPPOSITE_DIR+'" class="opp_dir_div '+OPPOSITE_DIR+'_div">'+capture+'</div>\n'
         }
-    }
+    };
     return [myext1, myext2, myext3];
 };
 
+// This accepts hugo template for different direction text {{% ltr|rtl %}}BLAH BLAH{{%\ rtl|ltr %}}
+var hugoWiki = function () {
+    var myext1 = {
+      type: 'lang',
+      regex: /{{%\s*rtl\s*%}}([\s\S]+?){{%\s*\\rtl\s*%}}/gm,
+      replace: '%RTLBLOCKSTART%\n$1\n%RTLBLOCKEND%'
+    };
+
+    var myext2 = {
+      type: 'lang',
+      regex: /{{%\s*ltr\s*%}}([\s\S]+?){{%\s*\\ltr\s*%}}/gm,
+      replace: '%LTRBLOCKSTART%\n$1\n%LTRBLOCKEND%'
+    };
+
+    var myext3 = {
+        type: 'output',
+        regex: /%RTLBLOCKSTART%([\s\S]+?)%RTLBLOCKEND%/gm,
+        replace: function(match, capture) {
+            return '\n<div dir="rtl" class="rtl">'+capture+'</div>\n'
+        }
+    };
+
+    var myext4 = {
+        type: 'output',
+        regex: /%LTRBLOCKSTART%([\s\S]+?)%LTRBLOCKEND%/gm,
+        replace: function(match, capture) {
+            return '\n<div dir="ltr" class="ltr">'+capture+'</div>\n'
+        }
+    };
+    return [myext1, myext2, myext3, myext4];
+};
+
 showdown.extensions.oppositeblock = oppositeBlock
+showdown.extensions.hugowiki = hugoWiki
 
 // setting up the main angular app
 var urdown = angular.module('Urdown', ['ng-showdown'])
 urdown.config(function($showdownProvider) {
     $showdownProvider.loadExtension('oppositeblock')
+    $showdownProvider.loadExtension('hugowiki')
 });
 
 // setting up controller
